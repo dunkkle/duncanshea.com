@@ -1,3 +1,3 @@
-# dunkkle.com
+# duncanshea.com
 
-https://dunkkle.github.io/dunkkle.com/
+https://duncanshea.com
