@@ -44,7 +44,12 @@
         animation: lineslide 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
         /*-webkit-animation: lineslide 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;*/
     }
-
+    
+    .anchor {
+            fill: #555555;
+    stroke: orange;
+    stroke-width: 3;
+    }
 
     @keyframes lineslide {
         0% {
