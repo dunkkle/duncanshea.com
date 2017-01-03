@@ -8,29 +8,29 @@
 
 <!-- TODO
 
-- 'Hi Noel' svg animation
+	- 'Hi Noel' svg animation
 
-- 'send this cut list' function - maybe it sends the url, which
-	resolves to a saved page. Once it's done, she can click 'done'
-	and Noel will be notified!
+	- 'send this cut list' function - maybe it sends the url, which
+		resolves to a saved page. Once it's done, she can click 'done'
+		and Noel will be notified!
 
-DONE - 'Reset' button - refreshes page
+	DONE - 'Reset' button - refreshes page
 
-- 'Send cut list' function - how should this work?
-	Maybe it's just a text field with a 'copy to clipboard' function so she 
-	can text the cut list
+	- 'Send cut list' function - how should this work?
+		Maybe it's just a text field with a 'copy to clipboard' function so she 
+		can text the cut list
 
-DONE - Styling - cream bg, dark grey/blue text. Style the input fields nicely, too.
+	DONE - Styling - cream bg, dark grey/blue text. Style the input fields nicely, too.
 
-- modular packages. Need to be able to add packages without too much hassle...
+	- modular packages. Need to be able to add packages without too much hassle...
 
-- modularize 'packages.json', other files..
+	- modularize 'packages.json', other files..
 
-DONE - set up as a git repo...
+	DONE - set up as a git repo...
 
-DONE - get the cut list working properly!
+	DONE - get the cut list working properly!
 
-- include newer version of Jquery - added an old one that I just had lying around...
+	- include newer version of Jquery - added an old one that I just had lying around...
 
  -->
 </head>
@@ -194,7 +194,7 @@ DONE - get the cut list working properly!
 				"name": "Dear Lili",
 				"quantity": 0,
 				"flowers": {
-					'6" Camell': 1,
+					'6" Camellia': 1,
 					'6" Gardenia': 1,
 					'6" Le Rosy': 1,
 					'12" Le Rosy ': 1,
@@ -320,7 +320,7 @@ var cutListObject = {};
 	document.getElementById('inputs').style.display = "none";
 
 	// Display the order totals for confirmation...
-	document.getElementById('order_confirmation').style.display = "block";
+	document.getElementById('order_confirmation').style.display = "flex";
 
 	document.getElementById('order_confirmation').innerHTML = 
 	"<h3>You have selected the following packages:</h3>" +
@@ -334,12 +334,12 @@ var cutListObject = {};
 	var output = '';
 
 		for (var flower in cutListObject) {
-			output += "<strong>" + cutListObject[flower] + "</strong> x "  + flower + "<br> ";
+			output += "<li>" + cutListObject[flower] + " x "  + flower + "</li> ";
 		}
 
 	document.getElementById('cutlist').innerHTML = 
 
-		"<h3>Here is the cut list:</h3><br>" + output;
+		"<h3>Here is the cut list:</h3>" + "<ul>" + output + "</ul>";
 		
 
 	
