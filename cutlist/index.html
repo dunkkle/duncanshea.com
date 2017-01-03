@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fanciful Cut List Calculator</title>
+	<meta charset="utf-8">
+	<!-- Makes this work on mobile devices without being super zoomed out -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- TODO
+
+- 'Hi Noel' svg animation
+
+- 'send this cut list' function - maybe it sends the url, which
+	resolves to a saved page. Once it's done, she can click 'done'
+	and Noel will be notified!
+
+DONE - 'Reset' button - refreshes page
+
+- 'Send cut list' function - how should this work?
+	Maybe it's just a text field with a 'copy to clipboard' function so she 
+	can text the cut list
+
+DONE - Styling - cream bg, dark grey/blue text. Style the input fields nicely, too.
+
+- modular packages. Need to be able to add packages without too much hassle...
+
+- modularize 'packages.json', other files..
+
+DONE - set up as a git repo...
+
+DONE - get the cut list working properly!
+
+- include newer version of Jquery - added an old one that I just had lying around...
+
+ -->
+</head>
+
+
+
+
+<!-- Use this newer version of JQuery? -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+
+<!-- Included this old one to work in coffee shop without wifi...just had it lying around. -->
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+
+<body>
+
+<div class="wrapper">
+	<div class="header">
+		<p>Hi Noel!</p>
+	</div>
+	
+	<div id="inputs" class="box">
+		<form>
+			<div class="package">
+				<label for="kindred_vintage">Kindred Vintage:</label>
+					<select id="kindred_vintage">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+
+				<br>
+
+				<label for="dear_lili">Dear Lili:</label>
+					<select id="dear_lili">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+
+				<br>
+
+				<label for="annabelle">Annabelle:</label>
+					<select id="annabelle">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+
+				<br>
+
+				<label for="remy">Remy:</label>
+					<select id="remy">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+
+					<br>
+			</div>
+			
+			<input type="button" id="calculate-button" onclick="updateOrderTotal()" value="Generate Cut List" name="submit">
+		</form>
+	</div>
+
+	<div id="order_confirmation" class="box"></div>
+
+	<div id="cutlist" class="box"></div>
+
+	<div class="footer">
+		<input type="button" id="reset-button" value="Reset" onClick="window.location.reload()">
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+
+	// ----------------------------------------------------------------
+	// Instructions...
+	//
+	// To add a new package, currently need to modify in three places..
+	// ----------------------------------------------------------------
+
+	// ----------------------------------------------------------------
+	// Set up array of flower packages. This can be more modular by
+	// including a 'css_id' field, which can be used to dynamically
+	// populate the whole picker array, as well as the 'totals' variables
+	// below..
+	//
+	// Package prototype:
+
+		// { 
+		// 	"id": 0,
+		// 	"name":"Kindred Vintage", // display name
+		//  "css_id": "#kindred-vintage" // not used yet
+		// 	"quantity": 0, // empty to start with
+		// 	"flowers": {
+		// 		"Gardenia 6": 1, // keep it consistent -- Capitalized flower name + diameter(inches)
+		// 		"Le Rosy 6": 1,
+		// 		"Le Rosy 24": 1
+		// 		}
+		// },
+	// ----------------------------------------------------------------
+
+
+	var data = { 
+		"packages": [
+			{ 
+				"id": 0,
+				"name":"Kindred Vintage",
+				"quantity": 0,
+				"flowers": {
+					'6" Gardenia': 1,
+					'6" Le Rosy': 1,
+					'12" French Flowing Fleur': 1,
+					'12" Gardenia': 2,
+					'12" Magnolia': 1,
+					'18" Rose': 2,
+					'24" French Flowing Fleur': 1,
+					'24" Le Rosy': 1
+					}
+			},
+			{
+				"id": 1,
+				"name": "Dear Lili",
+				"quantity": 0,
+				"flowers": {
+					'6" Camell': 1,
+					'6" Gardenia': 1,
+					'6" Le Rosy': 1,
+					'12" Le Rosy ': 1,
+					'12" Magnolia': 1,
+					'18" Gardenia': 1,
+					'24" Camellia': 1
+					}
+			},
+			{
+				"id": 2,
+				"name": "Annabelle",
+				"quantity": 0,
+				"flowers": {
+					'6" Camellia': 2,
+					'6" Gardenia': 2,
+					'12" Dahlia': 1,
+					'12" Gardenia': 1,
+					'18" Camellia': 1,
+					'18" Gardenia': 1
+					}
+			},
+			{
+				"id": 3,
+				"name": "Remy",
+				"quantity": 0,
+				"flowers": {
+					'6" Camellia': 2,
+					'6" Gardenia': 1,
+					'12" Magnolia': 1,
+					'18" Camellia': 1,
+					'18" Gardenia': 1
+					}
+			}
+	],
+
+	"allOrders": [],
+
+	"cutList": []
+
+}
+
+
+function updateOrderTotal() {
+
+	//set the totals up as variables to make this easier to read...
+	var totalKindredVintage = document.getElementById('kindred_vintage').value; //3
+	var totalDearLili = document.getElementById('dear_lili').value; //2
+	var totalAnnabelle = document.getElementById('annabelle').value;
+	var totalRemy = document.getElementById('remy').value;
+
+	// TODO: modularize the above?
+
+
+
+	// update the JSON data with order totals
+	data.packages[0].quantity = totalKindredVintage;
+	data.packages[1].quantity = totalDearLili;
+	data.packages[2].quantity = totalAnnabelle;
+	data.packages[3].quantity = totalRemy;
+
+
+
+	//create a massive array with all flowers...
+	var allPackages = data.packages;
+	var allOrders = data.allOrders;
+
+
+	allPackages.forEach(function(package) {
+
+		var packageName = package.name;
+		var packageQuantity = package.quantity;
+		var packageFlowers = package.flowers;
+
+
+		// 
+		  for (var i=0; i < packageQuantity; i++) {
+		  	allOrders.push(packageFlowers);
+		  }
+
+	    //console.log(package);
+	    //console.log(packageFlowers);
+
+	});
+
+
+var cutListObject = {};
+
+	// loop through all the orders
+	$.each(allOrders, function(key) {
+
+		var thisOrder = allOrders[key];
+
+		// loop through all the flowers in a given order
+		$.each(thisOrder, function(flower,quantity) {
+			var thisFlower = flower;
+			var thisQuantity = quantity;
+
+			// check if the cutList already has the flower in it
+			if (cutListObject.hasOwnProperty([flower])) {
+
+				// if so, get the value of that key and add the new value to it
+				var oldQuantity = cutListObject[flower];
+				var newQuantity = oldQuantity + quantity;
+
+				//push the new key/value pair in..
+				cutListObject[flower] = newQuantity;
+
+			} else
+
+				{
+					// if it doesn't have the flower, then add the key/value pair
+					cutListObject[flower] = quantity;
+				}
+
+		});
+
+	});
+
+	console.log(cutListObject);
+
+
+	// hide the form
+	document.getElementById('inputs').style.display = "none";
+
+	// Display the order totals for confirmation...
+	document.getElementById('order_confirmation').style.display = "block";
+
+	document.getElementById('order_confirmation').innerHTML = 
+	"<h3>You have selected the following packages:</h3>" +
+	"Kindred Vintage: " + totalKindredVintage + "<br>" +
+	"Dear Lili: " + totalDearLili + "<br>" +
+	"Annabelle: " + totalAnnabelle + "<br>" +
+	"Remy: " + totalRemy + "<br>" ;
+
+	// display the cut list!
+
+	var output = '';
+
+		for (var flower in cutListObject) {
+			output += "<strong>" + cutListObject[flower] + "</strong> x "  + flower + "<br> ";
+		}
+
+	document.getElementById('cutlist').innerHTML = 
+
+		"<h3>Here is the cut list:</h3><br>" + output;
+		
+
+	
+}
+
+
+
+</script>
+
+</body>
+</html>
