@@ -1,87 +1,89 @@
-body {
-	height: 95vh;
-	background: #FAFAFA;
-	font-family: 'Helvetica Neue','Helvetica', sans-serif;
-	font-size: 20px;
-	color: #424242;
-	line-height: 22px;
-	font-weight: 300;
+.container {
+  margin: 0 auto;
+  max-width: 75.0rem;
 }
 
-.wrapper {
-	display: flex;
-	/*height: 100%;*/
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	overflow: visible;
-	max-width: 300px;
-	margin: auto;
+ select:invalid { color: orange; }
+
+.svg-container { 
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px; 
+	vertical-align: middle; 
+	overflow: hidden; 
 }
 
-
-.box {
-	padding: 20px 10px 20px 10px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    margin: auto;
-    align-items: center;
+.svg-content { 
+	/*display: inline-block;*/
+	position: relative;
+	/*top: 0;
+	left: 0;*/
 }
 
-#inputs{
-	text-align: center;
+#fanciful {
+	fill:#414042;
 }
 
-.package {
-	text-align: right;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	margin-right: 45px;
+#design-co {
+	fill:#414042;
 }
 
-#cutlist ul {
-	list-style-type: none;
-	-webkit-padding-start: 0;
+#accent-dot {
+	fill: #99CE66;
 }
 
-#cutlist ul li::first-letter {
-	font-weight: bold;
+.highlight {
+	color: #99CE66;
 }
 
-.footer {
-	margin-top: 10px;
-	margin-bottom: 20px;
+.button.noel-button {
+	border-color: #99CE66;
+	color: #99CE66 !important;
 }
 
-h3 {
-	text-align: center;
+.logo-letter, #fanciful {
+	fill-opacity: 0;
+	animation-fill-mode: forwards;
+    animation: draw 4s ease-out forwards;
+    -webkit-animation: draw 4s ease-out forwards;
+    -moz-animation: draw 4s ease-out forwards;
+    -o-animation: draw 4s ease-out forwards;
 }
 
-input[type="button" i] {
-    padding:5px 15px; 
-    border:0 none;
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px; 
-    font-size: 15px;
+@keyframes draw {
 
-}
-
-	input[type="button" i]#calculate-button {
-		color: #424242;
-	    background: #ffffff;
-	    border: 1px solid #222222;
+	0% {
+		fill-opacity: 0;
 	}
 
-	
-	input[type="button" i]#reset-button {
-		background: #9E9E9E;
-	    color: #ffffff;
+	25% {
+		fill-opacity: .1;
 	}
 
+    100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+    stroke: #2FCC9F;
+    stroke-width: 1;
+    }
+}
 
+@-webkit-keyframes draw {
+to {
+    stroke-dashoffset: 0;
+    }
+}
 
+@-moz-keyframes draw {
+to {
+    stroke-dashoffset: 0;
+    }
+}
 
+@-o-keyframes draw {
+to {
+    stroke-dashoffset: 0;
+    }
+}
