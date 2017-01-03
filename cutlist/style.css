@@ -31,20 +31,20 @@
 }
 
 #accent-dot {
-	fill: #99CE66;
+	fill: #0ABAB5;
 }
 
 .highlight {
-	color: #99CE66;
+	color: #0ABAB5;
 }
 
 select:focus {
-  border-color: #99CE66;
+  border-color: #0ABAB5;
  }
 
 .button.noel-button {
-	border-color: #99CE66;
-	color: #99CE66 !important;
+	border-color: #0ABAB5;
+	color: #0ABAB5 !important;
 }
 
 .logo-letter, #accent-dot {
