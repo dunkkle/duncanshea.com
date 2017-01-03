@@ -1,6 +1,6 @@
 .container {
   margin: 0 auto;
-  max-width: 75.0rem;
+  max-width: 100.0rem;
 }
 
  select:invalid { color: orange; }
@@ -43,7 +43,7 @@
 	color: #99CE66 !important;
 }
 
-.logo-letter, #fanciful {
+.logo-letter, #accent-dot {
 	fill-opacity: 0;
 	animation-fill-mode: forwards;
     animation: draw 4s ease-out forwards;
