@@ -59,14 +59,10 @@
 	}
 
 	25% {
-		fill-opacity: .1;
 	}
 
     100% {
-    stroke-dashoffset: 0;
     fill-opacity: 1;
-    stroke: #2FCC9F;
-    stroke-width: 1;
     }
 }
 
