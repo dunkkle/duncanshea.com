@@ -38,6 +38,10 @@
 	color: #99CE66;
 }
 
+select:focus {
+  border-color: #99CE66;
+ }
+
 .button.noel-button {
 	border-color: #99CE66;
 	color: #99CE66 !important;

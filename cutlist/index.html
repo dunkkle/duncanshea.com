@@ -59,8 +59,8 @@
 		
 		<div class="header">
 			<div class="svg-container">
-				<svg class="svg-content" version="1.1" xmlns="http://www.w3.org/2000/svg"
-					 viewBox="0 0 2000 250" preserveAspectRatio="xMinYMin meet" xml:space="preserve">
+				<svg class="svg-content" version="1.1" xmlns="http://www.w3.org/2000/svg" height=69
+					 viewBox="0 0 1500 300" preserveAspectRatio="xMinYMin meet" xml:space="preserve">
 					<g id="design-co">
 						<path d="M119.156,240.539c4.242-1.532,4.115-5.037,4.085-8.585c-0.059-6.939-0.071-13.879,0.005-20.817
 							c0.037-3.406-0.109-6.584-4.857-7.639c1.029-0.4,1.408-0.679,1.783-0.674c7.041,0.095,14.113-0.152,21.114,0.443
@@ -377,9 +377,9 @@
 
 	"allOrders": [],
 
-	"cutList": []
+	// "cutList": []
 
-}
+	}
 
 
 function updateOrderTotal() {
@@ -422,7 +422,7 @@ function updateOrderTotal() {
 	});
 
 
-var cutListObject = {};
+	var cutListObject = {};
 
 	// loop through all the orders
 	$.each(allOrders, function(key) {
@@ -465,6 +465,11 @@ var cutListObject = {};
 	// Display the order totals for confirmation...
 	//document.getElementById('order_confirmation').style.display = "flex";
 
+
+	// TODO:
+	// generate this dynamically. No need to hardcode...
+	// Should only disply the package types that were selected.
+	// Also, display total number of packages selected.
 	document.getElementById('order_confirmation').innerHTML = 
 	"<h5>You have selected the following packages:</h5><br>" +
 	"<dl>" +
@@ -487,7 +492,6 @@ var cutListObject = {};
 		"<h5>Here is the cut list:</h5><br>" + "<dl>" + output + "</dl>";
 		
 
-	
 }
 
 
